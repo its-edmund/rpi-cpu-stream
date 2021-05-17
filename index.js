@@ -12,19 +12,19 @@ var memInfo = {};
 var currentCPUInfo = { total: 0, active: 0 };
 var lastCPUInfo = { total: 0, active: 0 };
 
-function getValFromLine(line) {
+const getValFromLine = (line) => {
   var match = line.match(/[0-9]+/gi);
   if (match !== null) return parseInt(match[0]);
   else return null;
 }
 
-var calculateCPUPercentage = function (oldVals, newVals) {
+const calculateCPUPercentage = (oldVals, newVals) => {
   var totalDiff = newVals.total - oldVals.total;
   var activeDiff = newVals.active - oldVals.active;
   return Math.ceil((activeDiff / totalDiff) * 100);
 };
 
-var getCPUInfo = function () {
+const getCPUInfo = () => {
   lastCPUInfo.active = currentCPUInfo.active;
   lastCPUInfo.idle = currentCPUInfo.idle;
   lastCPUInfo.total = currentCPUInfo.total;
@@ -44,12 +44,12 @@ var getCPUInfo = function () {
       currentCPUInfo
     );
 
-    console.log("Current CPU Usage: " + data.percentUsed + "%");
+    console.log("Current CPU Usage: " + currentCPUInfo.percentUsed + "%");
 
     client.publish("0x3c334501a3faa9344f8f42b65567157b8a388ea0/rpi-cpu", {
-      cpuUsage: "Current CPU Usage: " + data.percentUsed + "%",
+      cpuUsage: "Current CPU Usage: " + currentCPUInfo.percentUsed + "%",
     });
   });
 };
 
-setInterval(PiStats.printCPUInfo, 1000);
+setInterval(getCPUInfo, 1000);
