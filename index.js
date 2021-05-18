@@ -1,10 +1,11 @@
 const StreamrClient = require("streamr-client");
 const fs = require("fs");
 
+require("dotenv").config();
+
 const client = new StreamrClient({
   auth: {
-    privateKey:
-      "2676f1a2ebbaef35196d9907f28f07dce55a12a9578a2c50077302192b84a155",
+    privateKey: process.env.ETHEREUM_PRIVATE_KEY,
   },
 });
 
@@ -16,7 +17,7 @@ const getValFromLine = (line) => {
   var match = line.match(/[0-9]+/gi);
   if (match !== null) return parseInt(match[0]);
   else return null;
-}
+};
 
 const calculateCPUPercentage = (oldVals, newVals) => {
   var totalDiff = newVals.total - oldVals.total;
