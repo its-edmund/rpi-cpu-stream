@@ -47,7 +47,7 @@ const getCPUInfo = () => {
 
     console.log("Current CPU Usage: " + currentCPUInfo.percentUsed + "%");
 
-    client.publish("0x3c334501a3faa9344f8f42b65567157b8a388ea0/rpi-cpu", {
+    client.publish("0x5cb8a3553eae22669d62335332978cb43d035930/rpi-cpu", {
       cpuUsage: "Current CPU Usage: " + currentCPUInfo.percentUsed + "%",
     });
   });
